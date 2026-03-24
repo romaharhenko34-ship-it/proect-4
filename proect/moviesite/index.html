@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CinemaScape — Discover Movies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/moviesite/src/styles/main.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- NOISE TEXTURE -->
+    <div class="noise"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-inner">
+        <div class="nav-logo">
+          <i class="fa-solid fa-film"></i>
+          <span>Cinema<b>Scape</b></span>
+        </div>
+        <div class="nav-tabs">
+          <button class="tab-btn active" data-tab="discover">Discover</button>
+          <button class="tab-btn" data-tab="watchlist">
+            Watchlist
+            <span class="badge" id="wlBadge">0</span>
+          </button>
+        </div>
+        <div class="nav-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off" />
+          <button id="searchClear" class="search-clear hidden"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="hero">
+      <div class="hero-backdrop" id="heroBackdrop"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content" id="heroContent">
+        <div class="hero-meta" id="heroMeta"></div>
+        <h1 class="hero-title" id="heroTitle">Loading...</h1>
+        <p class="hero-desc" id="heroDesc"></p>
+        <div class="hero-actions">
+          <button class="btn-watch" id="heroWatch">
+            <i class="fa-solid fa-play"></i> Watch Trailer
+          </button>
+          <button class="btn-wl" id="heroWl">
+            <i class="fa-solid fa-plus"></i> Watchlist
+          </button>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </header>
+
+    <!-- GENRE FILTER -->
+    <div class="genre-bar" id="genreBar">
+      <div class="genre-inner" id="genreList"></div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main" id="main">
+
+      <!-- DISCOVER VIEW -->
+      <section class="view active" id="view-discover">
+        <div class="section-header">
+          <h2 class="section-title" id="sectionTitle">Trending Now</h2>
+          <div class="sort-group">
+            <label>Sort by</label>
+            <select id="sortSelect">
+              <option value="popularity">Popularity</option>
+              <option value="rating">Rating</option>
+              <option value="year">Year</option>
+              <option value="title">Title</option>
+            </select>
+          </div>
+        </div>
+        <div class="movies-grid" id="moviesGrid">
+          <!-- Cards rendered by JS -->
+        </div>
+        <div class="skeleton-grid hidden" id="skeletonGrid">
+          ${Array(8).fill('<div class="skeleton-card"><div class="sk sk-img"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>').join('')}
+        </div>
+        <div class="load-more-wrap">
+          <button class="btn-load" id="loadMore">Load More <i class="fa-solid fa-arrow-down"></i></button>
+        </div>
+      </section>
+
+      <!-- WATCHLIST VIEW -->
+      <section class="view" id="view-watchlist">
+        <div class="section-header">
+          <h2 class="section-title">My Watchlist</h2>
+          <button class="btn-clear-wl" id="clearWl">
+            <i class="fa-solid fa-trash"></i> Clear All
+          </button>
+        </div>
+        <div class="movies-grid" id="watchlistGrid"></div>
+        <div class="wl-empty hidden" id="wlEmpty">
+          <i class="fa-solid fa-bookmark"></i>
+          <h3>Your watchlist is empty</h3>
+          <p>Add movies from the Discover tab to watch later.</p>
+          <button class="btn-watch" onclick="window.switchTab('discover')">
+            <i class="fa-solid fa-compass"></i> Discover Movies
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- MOVIE DETAIL MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal" id="modal">
+        <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-body">
+          <div class="modal-poster" id="modalPoster"></div>
+          <div class="modal-info">
+            <div class="modal-meta" id="modalMeta"></div>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div class="modal-stats" id="modalStats"></div>
+            <p class="modal-desc" id="modalDesc"></p>
+            <div class="modal-cast" id="modalCast"></div>
+            <div class="modal-actions" id="modalActions"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container" id="toastContainer"></div>
+
+  </div>
+
+  <script type="module" src="/moviesite/src/main.js"></script>
+</body>
+</html>
